@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>글 목록 (2/2) · t3b04-ss-karaoke-real2</title>
+  <meta name="description" content="t3b04-ss-karaoke-real2에 올라온 글 목록입니다.">
+  <link rel="canonical" href="https://sangsu-song-zone.namanavi.com/posts-2.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+        :root {
+            --bg-color: #07080b;
+            --main-gradient: linear-gradient(180deg, #07080b 0%, #15111b 100%);
+            --card-surface: rgba(255, 255, 255, 0.02);
+            --border-color: rgba(255, 255, 255, 0.04);
+            --text-high: #f5f0f6;
+            --text-low: #938a97;
+            --lavender: #d8b4fe;
+            --glow: rgba(216, 180, 254, 0.12);
+            --font-serif: 'Gowun Batang', serif;
+            --font-sans: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--main-gradient);
+            color: var(--text-high);
+            font-family: var(--font-serif);
+            line-height: 1.85;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 660px;
+            margin: 0 auto;
+            padding: 90px 24px;
+            width: 100%;
+        }
+
+        .blog-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .blog-header::after {
+            content: '';
+            display: block;
+            width: 35px;
+            height: 1px;
+            background: var(--lavender);
+            margin: 20px auto 0;
+            opacity: 0.4;
+            box-shadow: 0 0 6px var(--lavender);
+        }
+
+        .blog-sub {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--lavender);
+            font-family: var(--font-sans);
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .blog-title {
+            font-size: 1.85rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.45;
+            letter-spacing: -0.01em;
+        }
+
+        .blog-date {
+            font-size: 0.85rem;
+            color: var(--text-low);
+            margin-top: 10px;
+            font-family: var(--font-sans);
+        }
+
+        .essay-content {
+            font-size: 1.08rem;
+            color: var(--text-high);
+            text-align: justify;
+        }
+
+        .essay-p {
+            margin-bottom: 28px;
+            text-indent: 10px;
+        }
+
+        .highlight-quote {
+            background: var(--card-surface);
+            border-left: 2px solid var(--lavender);
+            padding: 20px 24px;
+            margin: 36px 0;
+            border-radius: 0 8px 8px 0;
+            backdrop-filter: blur(8px);
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .quote-inner {
+            font-style: italic;
+            color: #fdf2f8;
+            font-size: 1.02rem;
+        }
+
+        .comments {
+            margin-top: 75px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 40px;
+        }
+
+        .comments-label {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--lavender);
+            letter-spacing: 0.12em;
+            margin-bottom: 22px;
+            text-transform: uppercase;
+        }
+
+        .comment-node {
+            background: var(--card-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 18px;
+            margin-bottom: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .comment-node:hover {
+            border-color: rgba(216, 180, 254, 0.22);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .comment-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+        }
+
+        .author-name {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .post-time {
+            color: var(--text-low);
+        }
+
+        .stars {
+            color: var(--lavender);
+            font-size: 0.75rem;
+            margin-top: 2px;
+        }
+
+        .text-body {
+            font-size: 0.92rem;
+            color: var(--text-high);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 35px 24px;
+            border-top: 1px solid var(--border-color);
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            color: var(--text-low);
+            letter-spacing: 0.05em;
+        }
+
+        .lavender-glow {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 16px;
+            }
+
+            .blog-title {
+                font-size: 1.55rem;
+            }
+
+            .essay-content {
+                font-size: 1.02rem;
+            }
+        }
+    </style>
+  <meta property="og:title" content="글 목록 (2/2) · t3b04-ss-karaoke-real2">
+  <meta property="og:description" content="t3b04-ss-karaoke-real2에 올라온 글 목록입니다.">
+  <meta property="og:url" content="https://sangsu-song-zone.namanavi.com/posts-2.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+</head>
+<body>
+  <div class="container">
+    <header class="blog-header">
+            <div class="lavender-glow"></div>
+            <div class="blog-sub">LAVENDER ALLEY MEDITATION</div>
+            <div class="blog-title">오래된 주택가 붉은 처마 너머 번지는 은은한 네온의 수필</div>
+            <div class="blog-date">2026. 05. 27</div>
+        </header>
+    <main>
+      <h1>글 목록</h1>
+      <p>전체 39개 · 2/2 페이지</p>
+      <ul class="post-list">
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260722-0199.html">상수 가라오케 찐후기 살펴보고 상수 마사지 추천정보 파악</a>
+        <p class="post-item__summary">상수 가라오케 찐후기를 찾아보며 여가 시간을 계획하는 사람들이 마사지 업소를 찾을 때 자주 하는 실수가 있습니다. 바로 검증되지 않은 곳을 무작정 방문하거나, 예약 절차를 간소화하여 정보를 제대로 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260722-0200.html">상수 가라오케 찐후기 참고하여 망원 노래방 추천정보 찾기</a>
+        <p class="post-item__summary">상수 가라오케 찐후기를 살펴본 후 망원 지역으로 이동을 고려하는 분들이 많습니다. 노래방을 선택할 때 가장 중요한 요소 중 하나는 바로 업소의 위치와 접근성입니다. 방문하기 편한 곳이어야 모임의 시</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260722-0201.html">상수 가라오케 찐후기 확인하고 찾아가는 홍대 노래방 추천정보</a>
+        <p class="post-item__summary">오랜만에 만난 친구들과 상수 인근에서 저녁 식사를 마친 뒤 흥을 돋우기 위해 노래방을 찾는 경우가 많습니다. 인터넷에 떠도는 상수 가라오케 찐후기 내용만 보고 무작정 방문했다가는 원하던 분위기와 달</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260722-0202.html">상수 가라오케 찐후기 글이 오해인 이유와 공덕 셔츠룸 추천정보</a>
+        <p class="post-item__summary">간혹 인터넷 커뮤니티에 올라오는 상수 가라오케 찐후기 게시글을 보고 업태 자체를 단일하게 오해하는 분들이 많습니다. 사실 공덕 지역을 포함한 인근 업소들은 서비스 방식과 운영 형태에 따라 확연한 차</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260722-0203.html">상수 가라오케 찐후기 분석하고 정리한 연남 유흥 추천정보</a>
+        <p class="post-item__summary">좋은 유흥 장소를 찾기 위해서는 시설의 청결도, 서비스의 질, 그리고 접근성이라는 세 가지 필수 충족 조건이 중요합니다. 많은 사람이 상수 가라오케 찐후기 내용을 분석하며 최적의 장소를 찾으려 노력</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260722-0204.html">상수 가라오케 찐후기 꼼꼼히 살피며 찾는 마곡 가라오케 추천정보</a>
+        <p class="post-item__summary">여러분은 유흥 업소를 선택할 때 어떤 기준을 가장 중요하게 생각하시나요? 인터넷상의 상수 가라오케 찐후기 자료를 살펴보면 가격, 서비스, 시설 등 사람마다 기준이 천차만별입니다. 마곡 지역에서 가라</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260722-0205.html">상수 가라오케 찐후기 확인하고 마곡 유흥 추천정보 알아보기</a>
+        <p class="post-item__summary">상수 가라오케 찐후기 내용을 읽어보면 서비스의 본질을 파악하는 기준을 세울 수 있습니다. 온라인에 떠도는 수많은 정보 중에서 자신에게 필요한 가치를 선별하는 것은 매우 중요한 작업입니다. 특히 마곡</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260722-0206.html">상수 가라오케 찐후기 기반 합정 노래방 추천정보 비교 분석</a>
+        <p class="post-item__summary">상수 가라오케 찐후기 사례를 참고하여 장소를 선택할 때 가장 고민되는 부분은 바로 비용입니다. 정찰제 기반의 매장과 유동적인 가격 체계를 가진 곳을 대조해 보는 것이 합리적인 결정의 출발점입니다. </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260722-0207.html">상수 가라오케 찐후기 실수를 피하는 연남 클럽 추천정보 예약</a>
+        <p class="post-item__summary">상수 가라오케 찐후기 내용을 분석해보면 많은 이용객이 예약 과정에서 같은 실수를 반복함을 알 수 있습니다. 특히 연남 지역처럼 유동 인구가 많은 곳의 클럽을 이용할 때는 사전 예약의 중요성이 더욱 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260722-0208.html">상수 가라오케 찐후기 점검하며 확인하는 합정 셔츠룸 추천정보</a>
+        <p class="post-item__summary">상수 가라오케 찐후기 정보를 살피다 보면 위치와 접근성의 중요성을 간과하는 경우가 많습니다. 합정 인근의 셔츠룸을 방문할 때는 단순한 정보 탐색을 넘어 현장 확인 항목을 체크리스트로 만드는 과정이 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260722-0209.html">상수 가라오케 찐후기 경험으로 보는 공덕 가라오케 추천정보 가이드</a>
+        <p class="post-item__summary">오랜만에 만난 지인들과 회식 장소를 물색하다 보면 분위기 좋은 공간을 찾기 위해 고민하게 됩니다. 특히 상수 가라오케 찐후기를 찾아보며 여러 곳을 비교하던 중, 인근 지역인 공덕으로 눈길을 돌리는 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/guide-002-goyeqc.html">가라오케 해결 방법 총정리</a>
+        <p class="post-item__summary">상수 지역에서 즐거운 시간을 보내기 위해 가라오케를 찾는 분들이 늘고 있습니다. 하지만 수많은 업소 사이에서 어디를 선택해야 할지 고민되는 것이 사실입니다. 성공적인 밤을 보내기 위해서는 단순히 화</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/juice-1.html">상수 가라오케 찐후기</a>
+        <p class="post-item__summary">상수 가라오케 찐후기를 검색하는 분들은 주로 지역 내 노래방 매장의 분위기, 비용 체계, 이용 경험에 대한 실제 방문 기록을 참고합니다. 본 페이지는 상수区域内的 가라오케에 대한 정보를 안내하며, </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/juice-2.html">상수 가라오케 찐후기 검색 안내</a>
+        <p class="post-item__summary">상수 지역에서 가라오케를 찾고 계신 분들을 위해 이 안내를 준비했습니다. 가라오케 시설을 선택할 때는 여러 가지 요소를 고려해야 합니다. 예를 들어 실내 환경, 음향 장비 수준, 예약 편의성 등이 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/normal-1.html">상수 가라오케 정보</a>
+        <p class="post-item__summary">상수 지역에는 다양한 노래방 업소가 위치해 있습니다. 가라오케는 단체 회식, 친구 모임, 일상 속 여가 활동 등 다양한 목적으로 활용되는 문화로 자리 잡고 있으며, 각 업소는 음악 장르와 내부 시설</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/normal-2.html">상수 가라오케 찐후기</a>
+        <p class="post-item__summary">상수 지역 가라오케를 찾아보는 분이라면, 방문 전에 알아두면 도움이 되는 여러 가지 정보들이 있습니다. 가라오케는 단순한 노래방이 아닌, 취향과 상황에 맞는 선택이 중요한 공간이기 때문입니다. 좋은</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/normal-3.html">상수 가라오케 찐후기 및 업종 비교 정보</a>
+        <p class="post-item__summary">상수 지역에서 가라오케를 찾는 많은 분들이 실제로 방문한 경험에 기반한 다양한 후기와 정보를 찾아보곤 합니다. 특히 다른 업종에 비해 가라오케는 분위기나 서비스 질에 차이가 크므로, 단순한 홍보 문</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/qa-002-29scat.html">상수 가라오케 찐후기 처음 알아볼 때 실제로 많이 묻는 질문 5가지</a>
+        <p class="post-item__summary">백링크 지시: 본문 내러티브 속에서 다음 링크를 자연스러운 발견으로 녹여라: 합정 셔츠룸 단골들이 뽑은 핫플 매거진</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/review-001.html">상수 가라오케 찐후기: 블레이드 러너 유니콘 꿈보다 더 깊은 3 개월의 진실</a>
+      </li>
+      </ul>
+    <nav class="pager">
+      <a class="pager__link" href="posts.html">1</a>
+      <span class="pager__current">2</span>
+    </nav>
+    </main>
+  </div>
+</body>
+</html>
